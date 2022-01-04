@@ -1,0 +1,29 @@
+#!/bin/bash
+
+FILE=$1
+
+if [ $# -eq 0 ];
+then
+echo "No arguments. Aborting"
+exit 1
+fi
+
+if command -v g++ > /dev/null
+then
+g++ $1 -o $1_app
+./$1_app
+else
+echo "g++ is not installed. Do you want to install it? [y/n]"
+read answer
+if [ $answer == "y" ]
+then
+sudo apt update
+sudo apt install g++
+g++ $1 -o $1_app
+./$1_app
+elif [ $answer == "n" ]
+then
+echo "Exitting the program"
+exit 1
+fi
+fi
